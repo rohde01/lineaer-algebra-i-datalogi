@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath} % flere matematikkommandoer
+\usepackage[utf8]{inputenc} % æøå
+\usepackage[T1]{fontenc} % mere æøå
+\usepackage[danish]{babel} % orddeling
+\usepackage{verbatim} % så man kan skrive ren tekst
+\usepackage[all]{xy} % den sidste (avancerede) formel i dokumentet
+\title{En kort \LaTeX-skabelon}
+\author{Henrik og Henrik}
+\begin{document}
+\maketitle
+\begin{abstract}
+Dette dokument er en \LaTeX-skabelon, hvor det kan betale sig at studere tex-koden
+og pdf-dokumentet sammen! Vi har bestræbt os på at holde skabelonen kort; se \
+cite{n} for en meget mere grundig introduktion.
+\end{abstract}
+\tableofcontents
+\section{Indledning}
+Et \LaTeX-dokument starter med \verb!\documentclass!, derefter en {\em preample},
+der fastlægger generelle egenskaber ved dokumentet, så \verb!\begin{document}!
+efterfulgt af det egentlige dokument og til sidst \verb!\end{document}!.
+\section{Lidt om matricer}
+I \LaTeX kan man skrive en matrix vha \verb!array! som
+$$
+\mathbf A=
+\left(\begin{array}{cc}
+1&7\\9&13
+\end{array}\right).
+
+\begin{pmatrix}
+1&7\\9&13
+\end{pmatrix}
+\quad
+\begin{bmatrix}
+1&7\\9&13
+\end{bmatrix}.
+$$
+Hvis pakken \verb!inputenc! inkluderes kan man skrive æ, ø, å direkte fra et dansk
+tastatur.
+\section{Almindelig tekst}
+Bemærk, at flere mellemrum mellem ord eller bogstaver er det samme som 1 blanktegn,
+men en tom linje giver en ny paragraf.
+Specialtegn skrives i \LaTeX\ vha ``backslash'', fx giver \verb!\$! et dollartegn
+(\$). Efter \verb!%! kan skrives kommentarer på resten af linjen.
+\section{Matematik}
+Man skifter mellem almindelig tekst og matematiktekst med dollartegn, fx skrives
+ligningen $Ax=b$ vha \verb!$Ax=b$! og det er pænere end Ax=b, ikke sandt?\ Lidt
+mere blæret er vel $\mathbf {Ax}=\mathbf{b}$ når vi har med matricer og vektorer at
+gøre.
+Formler på egne linjer skrives som matematikkode mellem \verb!$$! og \verb!$$!,
+(eller ækvivalent \verb!\begin{equation*}! og \verb!\end{equation*}!) som fx
+$$
+\begin{bmatrix}
+1&7\\9&13
+\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}=\begin{bmatrix}3\\4\end{bmatrix}.
+$$
+For ``pæne'' formler over flere linjer kan \verb*!\begin{align*}...\end{align*}!
+bruges sammen med \verb!&! (alignment) og \verb!\\! (linjeskift), som fx
+\begin{align*}
+2x_1+3x_2-x_3&=1\\4x_1+7x_2+x_3&=3\\
+7x_1+10x_2-4x_3&=4
+\end{align*}
+Sæærlige bogstavsnit osv: Vi har allerede brugt \verb!\mathbf!, men nogle gange
+skrives $\mathcal U$ for et underrum i stedet for bare $U$.
+\section{Referencer til formler osv}
+Man kan referere tiltidligere (eller senere) formler i sit dokument ved at bruge \
+verb!\label{...}! og \verb!\ref{...}!, fx kan man giver ligningen nedenfor en
+etiket med fx \verb!\label{henriks-ligning}! (men så skal man huske at erstatte
+dollartegnene med \verb!\begin{equation}! og \verb!\end{equation}!):
+\begin{equation}
+\label{henriks-ligning}
+\begin{bmatrix}
+1&7\\9&13
+\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}=\begin{bmatrix}3\\4\end{bmatrix}.
+\end{equation}
+Når ligningen har fået en etiket, kan man henvise til den ved at skrive \verb!\
+ref{henriks-ligning}! som giver \ref{henriks-ligning}. Når men refererer til en
+ligning kan man med fordel bruge \verb!\eqref{henriks-ligning}!, så kommer der
+automatisk paranteser omkring 1, fx \eqref{henriks-ligning}.
+Bemærk, at det også er muligt at lave sætninger (Theorems), som man kan referere
+til. Det fører for vidt at beskrive det her. Se \cite[Section 3.9]{n}.
+\section{Hvad er der mere brug for?}
+\begin{itemize}
+\item Kvadrat skrives som $2^2$ og kvadratrod skrives $\sqrt{2}$
+\item Prikproduktet skrives som fx $x\cdot y$, eller $\mathbf x\cdot\mathbf y$.
+\item Numerisk værdi og længde som $|x|$ og $||\mathbf x||$
+\item Man kan skrive tekst, der ikke oversættes, men videregives som ren tekst. For
+enkelte ord kan man bruge \verb!\verb!, mens man for længere afsnit (over flere
+linjer) bør bruge \verb!verbatim!
+\begin{verbatim}
+tekst over
+flere linjer
+som kan
+rykkes ind
+\end{verbatim}
+\end{itemize}
+\section{Exercise 1.1.5}
+Her følger et eksempel på indskrivning af en opgave fra bogen. Opgaven går ud på at
+bestemme pivotvariable og frie variable for systemet
+\begin{align*}
+x_1-2x_2-10x_4&=0\\
+-x_2+x_3-2x_4&=1\\
+2x_3+4x_4&=6
+\end{align*}
+og dernæst at løse det. Systemet omskrives til matrixform:
+$$
+\left[\begin{array}{rrrr|r}
+1&-2&0&-10&0\\
+0&-1&1&-2&1\\
+0&0&2&4&6
+\end{array}\right]
+$$
+Pivotelementerne står i positionerne $(1,1)$, $(2,2)$ og $(3,3)$. Dermed er $x_4$
+en fri variabel. Sætter vi $x_4=t$ finder vi ved ``back substitution'': $2x_3+4t=6$
+dvs
+$$
+x_3=\frac{6}{2}-\frac{4t}{2}=3-2t.
+$$
+Dette giver (svarende til anden ligning):
+$$
+-x_2+x_3-2x_4=1 \quad \text{dvs}\quad x_2=1-\left(3-2t\right)+2t=-2+4t,
+$$
+og endeligt
+$$
+x_1=2x_2+10x_4=2\left(-2+4t\right)+10t=-4+18t.
+$$
+Dette kan skrives som
+$$
+\begin{bmatrix}x_1\\x_2\\x_3\\x_4\end{bmatrix}=\begin{bmatrix}-4+18t\\-2+4t\\3-2t\\
+t\end{bmatrix}
+=\begin{bmatrix}-4\\-2\\3\\0\end{bmatrix}+t\begin{bmatrix}18\\4\\-2\\1\end{bmatrix}
+$$
+\section{Rækkeoperationer}
+Neden for vises to måder, hvorpå man kan vise rækkeoperationer. Det simpleste er
+nok
+som fx:
+Ved at bruge rækkeoperationerne $4r_1+r_2 \to r_2$ og $-r_1+r_3 \to r_3$ får man
+$$
+\begin{bmatrix}
+1 & 2 & -1 & 4 & 5 \\
+-4 & 2 & 6 & 0 & -2 \\
+1 & 3 & 0 & 4 & 10
+\end{bmatrix}
+\to
+\begin{bmatrix}
+1 & 2 & -1 & 4 & 5 \\
+0 & 10 & 2 & 16 & 18 \\
+0 & 1 & 1 & 0 & 5
+\end{bmatrix}.
+$$
+Dette kan sevlfølgeligt typesættes mere avanceret, som fx:
+Ved at bruge rækkeoperationer får man
+$$
+\begin{array}{rcl}
+{
+\mathbf{M} =
+\left(\!\!\!\!
+\begin{array}{rrrr|r}
+1 & 2 & -1 & 4 & 5 \\
+-4 & 2 & 6 & 0 & -2 \\
+1 & 3 & 0 & 4 & 10
+\end{array}
+\!\!\right)
+}
+&
+\xymatrix@C=15ex{
+\ar[r]^-{\small
+\begin{array}{r}
+4\mathbf{r}_1+\mathbf{r}_2 \to \mathbf{r}_2 \\
+-\mathbf{r}_1+\mathbf{r}_3 \to \mathbf{r}_3
+\end{array}
+} &
+}
+&
+{
+\left(\!\!
+\begin{array}{rrrr|r}
+1 & 2 & -1 & 4 & 5 \\
+0 & 10 & 2 & 16 & 18 \\
+0 & 1 & 1 & 0 & 5
+\end{array}
+\!\!\right).
+}
+\end{array}
+$$
+\begin{thebibliography}{99} % de 99 laver blot lidt plads til venstre for
+referencenumeret
+\bibitem{n} Tobias Oetiker, Hubert Partl, Irene Hyna and Elisabeth Schlegl, The Not
+So Short Introduction to \LaTeXe, Version 5.01, April 06, 2011
+\end{thebibliography}
+\end{document}

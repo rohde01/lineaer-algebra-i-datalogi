@@ -1,0 +1,649 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath} % flere matematikkommandoer
+\usepackage[utf8]{inputenc} % æøå
+\usepackage[T1]{fontenc} % mere æøå
+\usepackage[danish]{babel} % orddeling
+\usepackage{verbatim} % så man kan skrive ren tekst
+\usepackage[all]{xy} % den sidste (avancerede) formel i dokumentet
+
+\title{Projekt B - LinAlg}
+\author{Carl-Emil Rohde \\ kvb125@alumni.ku.dk \\ Hold 10}
+\date{May 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Opgave 1}
+
+\subsection*{a}
+Jeg starter med at sætte A på reduceret rækkeechelonform:
+$$
+\begin{aligned}
+& \left(\begin{array}{cccc}
+2 & -1 & 2 & -3 \\
+0 & 1 & 0 & -1 \\
+-2 & 3 & -2 & 1 \\
+-1 & 2 & -1 & 0
+\end{array}\right) \stackrel{r_4+r_1 \rightarrow r_1}{\longrightarrow}\left(\begin{array}{cccc}
+1 & 1 & 1 & -3 \\
+0 & 1 & 0 & -1 \\
+-2 & 3 & -2 & 1 \\
+-1 & 2 & -1 & 0
+\end{array}\right) \stackrel{2 \cdot r_1+r_3 \rightarrow r_3}{\longrightarrow} \\
+& \left(\begin{array}{cccc}
+1 & 1 & 1 & -3 \\
+0 & 1 & 0 & -1 \\
+0 & 5 & 0 & -5 \\
+-1 & 2 & -1 & 0
+\end{array}\right) \stackrel{r+r_4 \rightarrow r_4}{\longrightarrow}\left(\begin{array}{llll}
+1 & 1 & 1 & -3 \\
+0 & 1 & 0 & -1 \\
+0 & 5 & 0 & -5 \\
+0 & 3 & 0 & -3
+\end{array}\right) \stackrel{r_1-r_2 \rightarrow r_1}{\longrightarrow} \\
+& \left(\begin{array}{llll}
+1 & 0 & 1 & -2 \\
+0 & 1 & 0 & -1 \\
+0 & 5 & 0 & -5 \\
+0 & 3 & 0 & -3
+\end{array}\right) \stackrel{r_3-5 r_2 \rightarrow r_3}{\longrightarrow}\left(\begin{array}{cccc}
+1 & 0 & 1 & -2 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 0 & 0 \\
+0 & 3 & 0 & -3
+\end{array}\right) \stackrel{r_4-3 r_2 \rightarrow 4_4}{\longrightarrow}\left(\begin{array}{cccc}
+1 & 0 & 1 & -2 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{array}\right)
+&
+\end{aligned}
+$$
+Jeg kan nu aflæse kerT som værende søjlerne i den reducerede rækkeechelonformel der ikke har pivot 1 taller, og med omvendt fortegn:
+$$
+\operatorname{Ker} T=\left[\begin{array}{c}
+-1 \\
+0 \\
+1 \\
+0
+\end{array}\right],\left[\begin{array}{l}
+2 \\
+1 \\
+0 \\
+1
+\end{array}\right]
+$$
+Dimensionen af underrummet kan bestemmes som værende antallet af søjler (4) minus antallet af ikke nul rækker (2):
+$$
+\operatorname{dim}(N u l l T)=4-2=2
+$$
+\subsection*{b}
+For at bestemme ranT, aflæser jeg ud fra pivot 1-tallerne i den reducerede række-echelon formel, de tilsvarende søjler i den originale A matrice:
+$$
+\operatorname{ran} T=\left[\begin{array}{c}
+2 \\
+0 \\
+-2 \\
+-1
+\end{array}\right],\left[\begin{array}{c}
+-1 \\
+1 \\
+3 \\
+2
+\end{array}\right]
+$$
+Da der er to ikke nul rækker i den reducerede rækkeechelonformel, er dimensionen af underrummet:
+$$
+\operatorname{dim}(\operatorname{ran} T)=\operatorname{rankT}=r=2
+$$
+\subsection*{c}
+For at finde denne vektor, ganger jeg $x_1$ og $x_2$ ind på søjlerne fra A, hvor der forekom pivot 1 taller, og ligger disse to sammen:
+$$
+x_1\left[\begin{array}{c}
+2 \\
+0 \\
+-2 \\
+-1
+\end{array}\right]+x_2\left[\begin{array}{c}
+-1 \\
+1 \\
+3 \\
+2
+\end{array}\right]=\left[\begin{array}{c}
+2 x_1-x_2 \\
+x_2 \\
+-2 x_1+3 x_2 \\
+-x_1+2 x_2
+\end{array}\right]
+$$
+Nu kan jeg opskrive:
+$$
+\left[\begin{array}{cccc}
+1 & 0 & 1 & -2 \\
+0 & 1 & 0 & -1 \\
+0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 0
+\end{array}\right] \cdot\left[\begin{array}{c}
+2 x_1-x_2 \\
+x_2 \\
+-2 x_1+3 x_2 \\
+-x_1+2 x_2
+\end{array}\right]=\left[\begin{array}{c}
+2 x_1-2 x_2 \\
+x_1-x_2 \\
+0 \\
+0
+\end{array}\right]
+$$
+Vi ser altså at når $x_1=x_2$, får vi en nulvektor som tilhører både kerT og ranT.
+
+\subsection*{d}
+Jeg er allerede givet A fra opgaven. X og Y kan opstilles som:
+$$
+X=\left(\begin{array}{cc}
+x_{11} & x_{12} \\
+x_{21} & x_{22} \\
+\hline 0 & 0 \\
+0 & 0
+\end{array}\right)
+$$
+$$
+Y=\left(\begin{array}{ll|ll}
+y_{11} & y_{12} & 0 & 0 \\
+y_{21} & y_{22} & 0 & 0
+\end{array}\right)
+$$
+For at vise der gælder $Y A X=Y^{\prime} A_{11} X^{\prime}$, starter jeg med at gange A og Y sammen:
+$$
+Y A=\left(\begin{array}{ll|ll}
+y_{11} & y_{12} & 0 & 0 \\
+y_{21} & y_{22} & 0 & 0
+\end{array}\right) \cdot\left(\begin{array}{cc|cc}
+2 & -1 & 2 & -3 \\
+0 & 1 & 0 & -1 \\
+-2 & 3 & -2 & 1 \\
+-1 & 2 & -1 & 0
+\end{array}\right)=\left(\begin{array}{c|c}
+2 y_{11}+\left(y_{12}-y_{11}\right) & 2 y_{11}-\left(3 y_{11}-y_{12}\right) \\
+\hline 2 y_{21}+\left(y_{22}-y_{21}\right) & 2 y_{21}-\left(3 y_{21}-y_{22}\right)
+\end{array}\right)
+$$
+Dette resultat ganger jeg nu med X:
+$$Y A X=$$
+$$
+\left(\begin{array}{l|l}
+2 y_{11}+\left(y_{12}-y_{11}\right) & 2 y_{11}-\left(3 y_{11}-y_{12}\right) \\
+\hline 2 y_{21}+\left(y_{22}-y_{21}\right) & 2 y_{21}-\left(3 y_{21}-y_{22}\right)
+\end{array}\right) \cdot\left(\begin{array}{cc}
+x_{11} & x_{12} \\
+x_{21} & x_{22} \\
+0 & 0 \\
+0 & 0
+\end{array}\right) = \left(\begin{array}{c|c}
+2 y_{11} x_{11}+\left(y_{12}-y_{11}\right) x_{21} & 2 y_{11} x_{12}-\left(3 y_{11}-y_{12}\right) x_{22} \\
+\hline 2 y_{21} x_{11}+\left(y_{22}-y_{21}\right) X_{21} & 2 y_{21} x_{12}-\left(3 y_{21}-y_{22}\right) x_{22}
+\end{array}\right)
+$$
+Ved samme fremgangsmåde, finder jeg nu først $Y^{\prime} A_{11}$:
+$$Y^{\prime} A_{11}=\left(\begin{array}{ll}
+y_{11} & y_{12} \\
+y_{21} & y_{22}
+\end{array}\right) \cdot\left(\begin{array}{cc}
+2 & -1 \\
+0 & 1
+\end{array}\right)=\left(\begin{array}{ll}
+2 y_{11}+\left(y_{12}-y_{11}\right) & 2 y_{11}-\left(3 y_{11}-y_{12}\right) \\
+2 y_{21}+\left(y_{22}-y_{21}\right) & 2 y_{21}-\left(3 y_{21}-y_{22}\right)
+\end{array}\right)$$
+Dette ganger jeg med X':
+$$Y^{\prime} A_{11} X^{\prime}=$$
+$$
+\left(\begin{array}{ll}
+2 y_{11}+\left(y_{12}-y_{11}\right) & 2 y_{11}-\left(3 y_{11}-y_{12}\right) \\
+2 y_{21}+\left(y_{22}-y_{21}\right) & 2 y_{21}-\left(3 y_{21}-y_{22}\right)
+\end{array}\right) \cdot\left(\begin{array}{ll}
+x_{11} & x_{12} \\
+x_{21} & x_{22}
+\end{array}\right) = \left(\begin{array}{ll}
+2 y_{11} x_{11}+\left(y_{12}-y_{11}\right) x_{21} & 2 y_{11} x_{12}-\left(3 y_{11}-y_{12}\right) x_{22} \\
+\hline 2 y_{21} x_{11}+\left(y_{22}-y_{21}\right) X_{21} & 2 y_{21} x_{12}-\left(3 y_{21}-y_{22}\right) x_{22}
+\end{array}\right)
+$$
+Vi ser nu $Y A X=Y^{\prime} A_{11} X^{\prime}$
+
+\subsection*{e}
+Jeg ved nu at $\text { A er } \operatorname{lig} A_{11}$, og finder nu først den inverse af A:
+$$A^{-1}=\left[\begin{array}{cc|cc}
+2 & -1 & 1 & 0 \\
+0 & 1 & 0 & 1
+\end{array}\right] r_1+r_2 \rightarrow r_1 \left[\begin{array}{ll|ll}
+2 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1
+\end{array}\right] r_1 \cdot \frac{1}{2} \rightarrow r_1 \left[\begin{array}{ll|ll}
+1 & 0 & \frac{1}{2} & \frac{1}{2} \\
+0 & 1 & 0 & 1
+\end{array}\right]$$
+Dette vil altså sige, at Y og X er enten givet ved
+$$Y=\left[\begin{array}{llll}
+\frac{1}{2} & \frac{1}{2} & 0 & 0 \\
+0 & 1 & 0 & 0
+\end{array}\right]$$
+og
+$$X=\left[\begin{array}{ll}
+1 & 0 \\
+0 & 1 \\
+0 & 0 \\
+0 & 0
+\end{array}\right]$$
+eller
+$$Y_2=\left[\begin{array}{llll}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0
+\end{array}\right]$$
+og
+$$X_2=\left[\begin{array}{ll}
+\frac{1}{2} & \frac{1}{2} \\
+0 & 1 \\
+0 & 0 \\
+0 & 0
+\end{array}\right]$$
+
+\section*{Opgave 2}
+\subsection*{2a}
+For at finde disse vektorer, laver jeg matrix-multiplikation på b-vektorene og basisskiftmatricen:
+$$
+\left[\begin{array}{lll}
+1 & 0 & 0 \\
+1 & 1 & 1 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right] \cdot\left[\begin{array}{ccc}
+0 & -1 & 1 \\
+-1 & 1 & 0 \\
+1 & 1 & -1
+\end{array}\right]=\left[\begin{array}{ccc}
+0 & -1 & 1 \\
+0 & 1 & 0 \\
+-1 & 1 & 0 \\
+1 & 1 & -1
+\end{array}\right]
+$$
+Her kan hver søjle aflæses som et c:
+$$
+c_1=\left[\begin{array}{c}
+0 \\
+0 \\
+-1 \\
+1
+\end{array}\right]
+$$
+og
+$$
+c_2=\left[\begin{array}{c}
+-1 \\
+1 \\
+1 \\
+1
+\end{array}\right]
+$$
+og
+$$
+c_3=\left[\begin{array}{c}
+1 \\
+0 \\
+0 \\
+-1
+\end{array}\right]
+$$
+
+\subsection*{2b}
+For at komme frem til $P_{C \leftarrow B}$, finder jeg den inverse af $P_{B \leftarrow C}$:
+$$
+\begin{aligned}
+& \left(\begin{array}{cccccc}
+0 & -1 & 1 & 1 & 0 & 0 \\
+-1 & 1 & 0 & 0 & 1 & 0 \\
+1 & 1 & -1 & 0 & 0 & 1
+\end{array}\right) \stackrel{r_3 \Leftrightarrow r_1}{\longrightarrow}\left(\begin{array}{ccc|ccc}
+1 & 1 & -1 & 0 & 0 & 1 \\
+-1 & 1 & 0 & 0 & 1 & 0 \\
+0 & -1 & 1 & 1 & 0 & 0
+\end{array}\right) \stackrel{r_2+r_1 \rightarrow r_2}{\longrightarrow} \\
+& \left(\begin{array}{ccc|ccc}
+1 & 1 & -1 & 0 & 0 & 1 \\
+0 & 2 & -1 & 0 & 1 & 1 \\
+0 & -1 & 1 & 1 & 0 & 0
+\end{array}\right) \stackrel{\frac{1}{2} \cdot r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccccccc}
+1 & 1 & -1 & 0 & 0 & 1 \\
+0 & 1 & -1 / 2 & 0 & 1 / 2 & 1 / 2 \\
+0 & -1 & 1 & 1 & 0 & 0
+\end{array}\right) \stackrel{r_2+r_3 \rightarrow r_3}{\longrightarrow} \\
+& \left(\begin{array}{ccc|ccc}
+1 & 1 & -1 & 0 & 0 & 1 \\
+0 & 1 & -1 / 2 & 0 & 1 / 2 & 1 / 2 \\
+0 & 0 & 1 / 2 & 1 & 1 / 2 & 1 / 2
+\end{array}\right) \stackrel{r_1-r_2 \rightarrow r_1}{\longrightarrow}\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 / 2 & 0 & -1 / 2 & 1 / 2 \\
+0 & 1 & -1 / 2 & 0 & 1 / 2 & 1 / 2 \\
+0 & 0 & 1 / 2 & 1 & 1 / 2 & 1 / 2
+\end{array}\right) \stackrel{2 \cdot r_3 \rightarrow r_3}{\longrightarrow} \\
+& \left(\begin{array}{ccc|ccc}
+1 & 0 & -1 / 2 & 0 & -1 / 2 & 1 / 2 \\
+0 & 1 & -1 / 2 & 0 & 1 / 2 & 1 / 2 \\
+0 & 0 & 1 & 2 & 1 & 1
+\end{array}\right) \stackrel{\frac{1}{2} \cdot r_3+r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccc|ccc}
+1 & 0 & -1 / 2 & 0 & -1 / 2 & 1 / 2 \\
+0 & 1 & 0 & 1 & 1 & 1 \\
+0 & 0 & 1 & 2 & 1 & 1
+\end{array}\right) \stackrel{\frac{1}{2} \cdot r_3+r_1 \rightarrow r_1}{\longrightarrow} \\
+& \left(\begin{array}{lll|lll}
+1 & 0 & 0 & 1 & 0 & 1 \\
+0 & 1 & 0 & 1 & 1 & 1 \\
+0 & 0 & 1 & 2 & 1 & 1
+\end{array}\right) \\
+&
+\end{aligned}
+$$
+Således får vi altså:
+$$
+P_{C \leftarrow B}=\left[\begin{array}{lll}
+1 & 0 & 1 \\
+1 & 1 & 1 \\
+2 & 1 & 1
+\end{array}\right]
+$$
+\subsection*{2c}
+Jeg starter med at transponere $u_a$:
+$$
+u_a=\left[\begin{array}{c}
+1 \\
+1 \\
+a \\
+-a
+\end{array}\right]
+$$
+Så opsætter jeg $\left[u_a\right]_B$, og putter på reduceret rækkeechelonformel:
+$$
+\left[u_a\right]_B=\left[\begin{array}{ccc|c}
+1 & 0 & 0 & 1 \\
+1 & 1 & 1 & 1 \\
+0 & 1 & 0 & a \\
+0 & 0 & 1 & -a
+\end{array}\right]
+$$
+Jeg benytter rækkeoperationerne: $r_2-r_1 \rightarrow r_2$ og $r_2 \leftrightarrow r_3$ og får:
+$$\left[u_a\right]_B=\left[\begin{array}{ccc|c}1 & 0 & 0 & 1 \\ 0 & 1 & 0 & a \\ 0 & 1 & 1 & 0 \\ 0 & 0 & 1 & -a\end{array}\right]$$
+Dernæst $r_3-r_2 \rightarrow r_3$ og $r_4-r_3 \rightarrow r_4$ og får:
+$$
+\left[u_a\right]_B=\left[\begin{array}{ccc|c}
+1 & 0 & 0 & 1 \\
+0 & 1 & 0 & a \\
+0 & 0 & 1 & -a \\
+0 & 0 & 0 & 0
+\end{array}\right]
+$$
+Således er det bevist at $u_a$ er en del af underrummet $u$. Den første koordinatvektor er nu også bestemt til at være:
+$$
+\left[u_a\right]_B=\left[\begin{array}{c}
+1 \\
+a \\
+-a \\
+0
+\end{array}\right]
+$$
+Jeg gør nu det samme for $\left[u_a\right]_C$:
+$$
+\left[u_a\right]_C=\left[\begin{array}{ccc|c}
+0 & -1 & 1 & 1 \\
+0 & 1 & 0 & 1 \\
+-1 & 1 & 0 & a \\
+1 & 1 & -1 & -a
+\end{array}\right]
+$$
+Foretager rækkeoperationerne $r_4 \longleftrightarrow r_1$, $r_3+r_1 \rightarrow r_3$, $r_1+r_4 \rightarrow r_1$ og får:
+$$
+\left[u_a\right]_C=\left[\begin{array}{ccc|c}
+1 & 0 & 0 & 1-a \\
+0 & 1 & 0 & 1 \\
+0 & 2 & -1 & 0 \\
+0 & -1 & 1 & 1
+\end{array}\right]
+$$
+Foretager rækkeoperationerne $r_3+2 r_4 \rightarrow r_3$, $r_4+r_2 \rightarrow r_4$ og $r_4-r_3 \rightarrow r_4$ og får:
+$$
+\left[u_a\right]_C=\left[\begin{array}{ccc|c}
+1 & 0 & 0 & 1-a \\
+0 & 1 & 0 & 1 \\
+0 & 0 & 1 & 2 \\
+0 & 0 & 0 & 0
+\end{array}\right]
+$$
+Den sidste koordinatvektor bliver således:
+$$
+\left[u_a\right]_C=\left[\begin{array}{c}
+1-a \\
+1 \\
+2 \\
+0
+\end{array}\right]
+$$
+\subsection*{2d}
+Vektorene jeg er givet, kan skrives op som:
+$$
+v_1=\left[\begin{array}{c}
+1 \\
+1+x \\
+0 \\
+x
+\end{array}\right]
+$$
+$$
+v_2=\left[\begin{array}{c}
+x \\
+1+x \\
+0 \\
+1
+\end{array}\right]
+$$
+og 
+$$
+v_3=\left[\begin{array}{c}
+1 \\
+1+x \\
+x \\
+0
+\end{array}\right]
+$$
+For ar finde ud af for hvilke tal vektorene er lineæer uafhængige, indsætter jeg dem i en matrice og sætter lig med 0:
+$$
+\left[\begin{array}{ccc|c}
+1 & x & 1 & 0 \\
+1+x & 1+x & 1+x & 0 \\
+0 & 0 & x & 0 \\
+x & 1 & 0 & 0
+\end{array}\right]
+$$
+Jeg foretager nu følgende rækkeoperationer: $r_2-(1+x) r_1 \rightarrow r_2$, $r_4-x r_1 \rightarrow r_4$, $r_4-r_2 \rightarrow r_4$ og får:
+$$
+\left[\begin{array}{ccc|c}
+1 & x & 1 & 0 \\
+0 & 1-x^2 & 0 & 0 \\
+0 & 0 & x & 0 \\
+0 & 0 & -x & 0
+\end{array}\right]
+$$
+Dernæst $r_4+r_3 \rightarrow r_4$, $r_1-\frac{1}{x} r_3 \rightarrow r_1$, $r_1-\frac{1}{1-x} r_2 \rightarrow r_1$ og får:
+$$
+\left[\begin{array}{ccc|c}
+1 & 0 & 0 & 0 \\
+0 & 1-x^2 & 0 & 0 \\
+0 & 0 & x & 0 \\
+0 & 0 & 0 & 0
+\end{array}\right]
+$$
+Jeg kan nu konkludere, at for $x=0$, bliver tredje søjle en nulsøjle, hvilket vil sige at vektorene er lineært uafhængige. For $x=1$ gælder der at nummer to søjle er en nulsøjle, og her er vektorene således også lineært uafhængige. 
+
+\subsection*{2e}
+Jeg kan opskrive:
+$$
+a \cdot\left[\begin{array}{l}
+1 \\
+1 \\
+0 \\
+0
+\end{array}\right]+b \cdot\left[\begin{array}{l}
+0 \\
+1 \\
+1 \\
+0
+\end{array}\right]+c \cdot\left[\begin{array}{l}
+0 \\
+1 \\
+0 \\
+1
+\end{array}\right]=\left[\begin{array}{c}
+0 \\
+0 \\
+x_3 \\
+x_4
+\end{array}\right]
+$$
+Ud fra dette, kan jeg aflæse hvad a, b og c skal antage, for at få systemet til at gå op. Først kan vi se, at da det kun er den første vektor a er ganget på, derfor kan vi aflæse $a=0$. Nummer to række indeholder a, b og c. Vi ved nu at $a=0$, og fordi $b+c$ skal give 0, så må b og c være det samme tal, men med omvendte fortegn. Vi kunne for eksempel have $b=5$ og $b=-5$.
+En retningsvektor for fællesmængden, som er en linje igennem origo, kan således bestemmes til: 
+$$
+\vec{r}=\left[\begin{array}{c}
+0 \\
+0 \\
+5 \\
+-5
+\end{array}\right]
+$$
+\section*{Opgave 3}
+\subsection*{3a}
+Jeg ved at rumskibet paralelforskydes med $\left(\begin{array}{c}\mathrm{s}_1-c_1 \\ \mathrm{~s}_2-c_2\end{array}\right)$. For at finde den nye position, plusser jeg denne vektor på vektorene for rumskibets punkter, for at finde den nye position:
+$$
+\left(\begin{array}{c}
+\mathrm{s}_1-c_1 \\
+\mathrm{~s}_2-c_2 \\
+\mathrm{~s}_1-c_1 \\
+\mathrm{~s}_2-c_2
+\end{array}\right)+\left(\begin{array}{c}
+\mathrm{c}_1 \\
+\mathrm{c}_2 \\
+\mathrm{~s}_1 \\
+\mathrm{~s}_2
+\end{array}\right)=\left(\begin{array}{c}
+\mathrm{c}_1+s_1-c_1 \\
+\mathrm{c}_2+s_2-c_2 \\
+\mathrm{~s}_1+s_1-c_1 \\
+\mathrm{~s}_2+s_2-c_2
+\end{array}\right)=\left(\begin{array}{c}
+\mathrm{s}_1 \\
+\mathrm{~s}_2 \\
+2 \mathrm{~s}_1-c_1 \\
+2 \mathrm{~s}_2-c_2
+\end{array}\right)
+$$
+For at finde 4x4 matricen, opskrives nu enhedsmatricen:
+$$
+\left(\begin{array}{cccc}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+-1 & 0 & 2 & 0 \\
+0 & -1 & 0 & 2
+\end{array}\right)
+$$
+\subsection*{3b}
+Jeg er givet at: $$
+\left(\begin{array}{c}
+\mathrm{S}_1^L \\
+\mathrm{~S}_2^L
+\end{array}\right)=\left(\begin{array}{c}
+\mathrm{C}_1 \\
+\mathrm{C}_2
+\end{array}\right)+\left(\begin{array}{cc}
+\cos \theta & \sin \theta \\
+\sin \theta & \cos \theta
+\end{array}\right)\left(\begin{array}{c}
+\mathrm{S}_1-C_1 \\
+\mathrm{~S}_2-C_2
+\end{array}\right)
+$$
+Jeg vil nu bevise, at det andet led svarende til de to paranteser sat sammen, også svarer til de to nederste rækker i $L_\theta$.
+Først regner jeg de to nederste rækker af $L_\theta$:
+$$
+\left(\begin{array}{cccc}
+-\cos \theta & \sin \theta & \cos \theta & -\sin \theta \\
+-\sin \theta & -\cos \theta & \sin \theta & \cos \theta
+\end{array}\right)\left(\begin{array}{c}
+\mathrm{C}_1 \\
+\mathrm{C}_2 \\
+\mathrm{~S}_1 \\
+\mathrm{~S}_2
+\end{array}\right)=\left(\begin{array}{c}
+-\cos \theta C_1+\sin \theta C_2+\cos \theta S_1-\sin \theta S_2 \\
+-\sin \theta C_1-\cos \theta C_2+\sin \theta S_1+\cos \theta S_2
+\end{array}\right)
+$$
+Som det næste, regner jeg for nummer to led i den oplyste ligning:
+$$\left(\begin{array}{cc}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{array}\right)\left(\begin{array}{c}
+\mathrm{S}_1-C_1 \\
+\mathrm{~S}_2-C_2
+\end{array}\right)=\left(\begin{array}{c}
+\cos \theta\left(S_1-C_1\right)-\sin \theta\left(S_2-C_2\right) \\
+\sin \theta\left(S_1-C_1\right)+\cos \theta\left(S_2-C_2\right)
+\end{array}\right)=\left(\begin{array}{c}
+-\cos \theta C_1+\sin \theta C_2+\cos \theta S_1-\sin \theta S_2 \\
+-\sin \theta C_1-\cos \theta C_2+\sin \theta S_1+\cos \theta S_2
+\end{array}\right)$$
+Vi ser at resulaterne er identiske, og derfor må $L_\theta$ gælde.
+\\
+\\
+For at bevise $R_\theta$ også gælder, kan jeg udskifte alle instanser af theta med minus theta. Dette er fordi højre rotationen er det omvendte
+af venstre rotationen:
+$$
+\left(\begin{array}{l}
+-\cos (-\theta) C_1+\sin (-\theta) C_2+\cos (-\theta) S_1-\sin (-\theta) S_2 \\
+-\sin (-\theta) C_1-\cos (-\theta) C_2+\sin (-\theta) S_1+\cos (-\theta) S_2
+\end{array}\right)=\left(\begin{array}{l}
+-\cos \theta C_1-\sin \theta C_2+\cos \theta S_1+\sin \theta S_2 \\
+\sin \theta C_1-\cos \theta C_2-\sin \theta S_1+\cos \theta S_2
+\end{array}\right)
+$$
+Således er begge formler altså gældende.
+
+\subsection*{3c}
+For at finde den nye position, ganger jeg F matricen fra forrige delopgave sammen med matricerne $\mathbf{L}_\theta$ og $\mathbf{R}_\theta$:
+
+$$F * R_\theta * F * L_\theta * F * F * L_\theta *\left(\begin{array}{c}
+\mathrm{c}_1 \\
+\mathrm{c}_2 \\
+\mathrm{~s}_1 \\
+\mathrm{~S}_2
+\end{array}\right) \leftrightarrow \left(\begin{array}{c}
+-2 \sin (30) \cos (30)-3 \sin (30) \\
+2 \cos (30)^2+3 \cos (30)-1 \\
+-2 \sin (30)(2+\cos (30)) \\
+2 \cos (30)^2+4 \cos (30)-1
+\end{array}\right)=\left(\begin{array}{c}
+-2,37 \\
+3,09 \\
+-2,87 \\
+3,96
+\end{array}\right)$$
+Jeg får således følgende position:
+$C=(-2,37 ; 3,09) \text { og } S=(-2,87 ; 3,94)$
+
+\subsection*{3d}
+$L_{30}$ roterer rumskibet 30 grader mod venstre. Hvis dette gentages 12 gange er skibet roteret 360 grader og derfor tilbage hvor det startede. Hvis det skal kunne lade sig gøre, at gange en matrix A på en matrix B, uden at B ændres, så skal A være enhedsmatricen med samme størrelse som B. Fordi transformationen ikke ændrer rumskibets position, må der gælde at: $\left(L_\theta\right)^{12}=I_4$
+
+
+
+\end{document}

@@ -1,0 +1,266 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath} % flere matematikkommandoer
+\usepackage[utf8]{inputenc} % æøå
+\usepackage[T1]{fontenc} % mere æøå
+\usepackage[danish]{babel} % orddeling
+\usepackage{verbatim} % så man kan skrive ren tekst
+\usepackage[all]{xy} % den sidste (avancerede) formel i dokumentet
+
+\title{Projekt A - LinAlg}
+\author{Carl-Emil Rohde \\ kvb125@alumni.ku.dk \\ Hold 10}
+\date{February 2023}
+
+\begin{document}
+
+\maketitle
+
+\section*{Opgave 1}
+
+\subsection*{a}
+Jeg opsætter totalmatricen for ligningssystemet, og foretager rækkeoperationerne:
+\\
+\\
+$\begin{aligned} & \left(\begin{array}{ccc|c}1 & 2 & a & a \\ a & a & 4 a & 1 \\ a & 2 & 2 a^2 & 1\end{array}\right) \stackrel{-a r_1+r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 2 & a & a \\ 0 & -a & 4 a-a^2 & -a^2+1 \\ a & 2 & 2 a^2 & 1\end{array}\right) \stackrel{-a r_1+r_3 \rightarrow r_2}{\longrightarrow} \\ & \left(\begin{array}{ccc|c}1 & 2 & a & a \\ 0 & -a & 4 a-a^2 & -a^2+1 \\ 0 & -2 a+2 & a^2 & -a^2+1\end{array}\right) \stackrel{-\frac{1}{a} r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 2 & a & a \\ 0 & 1 & -4+a & \frac{-1}{a}+a \\ 0 & -2a+2 & a^2 & -a^2+1\end{array}\right) \stackrel{-2(1-a) r_2+r_3 \rightarrow r_3}{\longrightarrow} \\ & \left(\begin{array}{lll|l}1 & 2 & a & a \\ 0 & 1 & -4+a & -\frac{1}{a}+a \\ 0 & 0 & 8-7 a & -1+a+\frac{2}{a}-a^2\end{array}\right) \\ & \end{aligned}$
+
+\subsection*{b}
+Nej, den række reducerede totalmatrix (1), kan ikke bruges til at finde løsningerne når $a=2$. I stedet opsættes en ny totalmatrix med de rigtige koefficienter for $a=2$, hvorefter systemet løses:
+\\
+\\
+$\begin{aligned} & \left(\begin{array}{ccc|c}1 & 2 & 2 & 2 \\ 2 & 2 & 8 & 1 \\ 2 & 2 & 8 & 1\end{array}\right) \stackrel{-2 r_1+r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 2 & 2 & 2 \\ 0 & -2 & 4 & -3 \\ 2 & 2 & 8 & 1\end{array}\right) \stackrel{-2 r_1+r_3 \rightarrow r_3}{\longrightarrow} & \left(\begin{array}{ccc|c}1 & 2 & 2 & -2 \\ 0 & -2 & 4 & -3 \\ 0 & -2 & 4 & -3\end{array}\right) \stackrel{-\frac{1}{2} r_2 \rightarrow r_2}{\longrightarrow}
+& \left(\begin{array}{ccc|c}1 & 2 & 2 & 2 \\ 0 & 1 & -2 & 3 / 2 \\ 0 & -2 & 4 & -3\end{array}\right)  \stackrel{-2(1-2) r_2+r_3 \rightarrow r_3}{\longrightarrow} \\ & \end{aligned}$
+$\left(\begin{array}{ccc|c}1 & 2 & 2 & 2 \\ 0 & 1 & -2 & 3 / 2 \\ 0 & 0 & 0 & 0\end{array}\right) \stackrel{r_1-2 r_2 \rightarrow r_1}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 0 & 6 & -1 \\ 0 & 1 & -2 & 3 / 2 \\ 0 & 0 & 0 & 0\end{array}\right)$
+\\
+\\
+\\
+Her får vi altså uendeligt mange løsninger, da vi her kan indføre en fri variabel:
+\\
+\\
+$x_3= S \\ x_2=\frac{3}{2}+2S \\ x_1 = -1-6S$
+\\
+\\
+\\
+\\
+\\
+\\
+\\
+\subsection*{c}
+Jeg opsætter af samme grund som før, en ny totalmatrice og løser ligningssystemet på ny:
+\\
+\\
+$\begin{aligned} & \left(\begin{array}{ccc|c}1 & 2 & 4 / 3 & 4 / 3 \\ 4 / 3 & 4 / 3 & 16 / 3 & 1 \\ 4 / 3 & 2 & 32 / 9 & 1\end{array}\right) \stackrel{-\frac{4}{3} r_1+r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 2 & 4 / 3 & 4 / 3 \\ 0 & -4 / 3 & 32 / 9 & -7 / 9 \\ 4 / 3 & 2 & 32 / 9 & 1\end{array}\right) \stackrel{-\frac{4}{3} r_1+r_3 \rightarrow r_3}{\longrightarrow} \\ & \left(\begin{array}{ccc|c}1 & 2 & 4 / 3 & 4 / 3 \\ 0 & -4 / 3 & 32 / 9 & -7 / 4 \\ 0 & -2 / 3 & 16 / 9 & -7 / 9\end{array}\right) \stackrel{-\frac{3}{4} r_2 \rightarrow r_2}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 2 & 4 / 3 & 4 / 3 \\ 0 & 1 & -8 / 3 & 7 / 12 \\ 0 & -2 / 3 & 16 / 9 & -7 / 9\end{array}\right) \stackrel{2 / 3 r_2+r_3 \rightarrow r_3}{\longrightarrow}\left(\begin{array}{ccc|c}1 & 2 & 4 / 3 & 4 / 3 \\ 0 & 1 & -8 / 3 & 7 / 12 \\ 0 & 0 & 0 & -7 / 18\end{array}\right) \stackrel{r_1-2 r_2 \rightarrow r_{11}}{\longrightarrow} \\ & \left(\begin{array}{ccc|c}1 & 0 & 20 / 3 & 1 / 6 \\ 0 & 1 & -8 / 3 & 7 / 12 \\ 0 & 0 & 0 & -7 / 18\end{array}\right) \\ & \end{aligned}$
+\\
+\\
+Her har vi altså ingen løsninger til systemet, da $0x_1+0x_2+0x_3$ ikke kan give $-\frac{7}{18}$
+
+\subsection*{d}
+\\
+$\left(\begin{array}{lll|lll}1 & 2 & 1 & 1 & 0 & 0 \\ 1 & 1 & 4 & 0 & 1 & 0 \\ 1 & 2 & 2 & 0 & 0 & 1\end{array}\right)\stackrel{r_3-r_1 \rightarrow r_3}{\longrightarrow} \left(\begin{array}{lll|lll}1 & 2 & 1 & 1 & 0 & 0 \\ 1 & 1 & 4 & 0 & 1 & 0 \\ 0 & 0 & 1 & -1 & 0 & 1\end{array}\right)\stackrel{r_2-r_1 \rightarrow r_2}{\longrightarrow} \left(\begin{array}{lll|lll}1 & 2 & 1 & 1 & 0 & 0 \\ 0 & -1 & 3 & -1 & 1 & 0 \\ 0 & 0 & 1 & -1 & 0 & 1\end{array}\right) \stackrel{r_2*-1 \rightarrow r_2}{\longrightarrow} \\ \left(\begin{array}{lll|lll}1 & 2 & 1 & 1 & 0 & 0 \\ 0 & 1 & -3 & 1 & -1 & 0 \\ 0 & 0 & 1 & -1 & 0 & 1\end{array}\right) \stackrel{r_3*3+r_2 \rightarrow r_2}{\longrightarrow} \left(\begin{array}{lll|lll}1 & 2 & 1 & 1 & 0 & 0 \\ 0 & 1 & 0 & -2 & -1 & 3 \\ 0 & 0 & 1 & -1 & 0 & 1\end{array}\right) \stackrel{r_1-r_3 \rightarrow r_1}{\longrightarrow} \left(\begin{array}{lll|lll}1 & 2 & 0 & 2 & 0 & -1 \\ 0 & 1 & 0 & -2 & -1 & 3 \\ 0 & 0 & 1 & -1 & 0 & 1\end{array}\right) \stackrel{r_1-(2*r_2) \rightarrow r_1}{\longrightarrow} \left(\begin{array}{lll|lll}1 & 0 & 0 & 6 & 2 & -7 \\ 0 & 1 & 0 & -2 & -1 & 3 \\ 0 & 0 & 1 & -1 & 0 & 1\end{array}\right)$
+\\
+\\
+Den inverse matrix jeg netop har fundet, ganges med vektorkolonnen fra opgavebeskrivelsen:
+\\
+\\
+$\left[\begin{array}{ccc}6 & 2 & 7 \\ -2 & -1 & 3 \\ -1 & 0 & 1\end{array}\right] \cdot\left[\begin{array}{c}7 \\ 9 \\ 13\end{array}\right]=\left[\begin{array}{c}6 \cdot 7+2 \cdot 9+7 \cdot 13 \\ -2 \cdot 7+-1 \cdot 9+3 \cdot 13 \\ -1 \cdot 7+0 \cdot 9+1 \cdot 13\end{array}\right]=\left[\begin{array}{c}151 \\ 16 \\ 6\end{array}\right]$
+\\
+\\
+Således har jeg fundet samtlige løsninger 
+
+
+\section*{Opgave 2}
+\subsection*{a}
+Jeg har fundet de fire elementærmatricer ved at anvende hver af de fire rækkeoperationer:
+\\
+\\
+$\begin{aligned} & E_1=\left[\begin{array}{lll}1 & 0 & 0 \\ 2 a & 1 & 0 \\ 0 & 0 & 1\end{array}\right] \\ & E_2=\left[\begin{array}{lll}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 3\end{array}\right] \\ & E_3=\left[\begin{array}{lll}0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1\end{array}\right] \\ & E_4=\left[\begin{array}{lll}1 & 0 & 5 / a \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{array}\right]\end{aligned}$
+\\
+\\
+Vi ved at enhedsmatricen kan findes ved at anvende rækkeoperationerne fra opgaven i rækkefølgen; $ero_1, ero_2, ero_3, ero_4$. Fordi rækkeoperationerne transformeres til venstre, må det betyde at matrixproduktet der resulterer i enhedsmatricen, må være $\mathbf{E}_4 \mathbf{E}_3 \mathbf{E}_2 \mathbf{E}_1 \mathbf{A}$. 
+\\
+\\
+Det vides at:
+$$E_4 E_3 E_2 E_1=A^{-1}$$
+Hvilket vil sige, at produktet af ovenstående elementærmatricer, svarer til den inverse matrice til A i den ovenstående rækkefølge. Vi ved også, at fordi A er en $nxn$ matrice, har A en højreinvers. Ud fra denne information, må det betyde at $A E_4 E_3 E_2 E_1$ også giver enhedsmatricen, fordi $A E_4 E_3 E_2 E_1=A A^{-1}=I$.
+\subsection*{b}
+Herunder har jeg fundet alle de inverse elementærmatricer:
+\\
+\\
+$\mathbf{E}_1^{-1} = \left[\begin{array}{ccc|ccc}1 & 0 & 0 & 1 & 0 & 0 \\ 2 a & 1 & 0 & 0 & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1\end{array}\right] \stackrel{r_2-r_1*2a \rightarrow r_2}{\longrightarrow} \left[\begin{array}{ccc|ccc}1 & 0 & 0 & 1 & 0 & 0 \\ 0 & 1 & 0 & -2 a & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1\end{array}\right]$
+\\
+\\
+\\
+$\mathbf{E}_2^{-1} = \left[\begin{array}{lll|lll}1 & 0 & 0 & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 & 1 & 0 \\ 0 & 0 & 3 & 0 & 0 & 1\end{array}\right] \stackrel{r_3*\frac{1}{3} \rightarrow r_3}{\longrightarrow} \left[\begin{array}{ccc|ccc}1 & 0 & 0 & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & \frac{1}{3}\end{array}\right]$
+\\
+\\
+\\
+$\mathbf{E}_3^{-1} = \left[\begin{array}{lll|lll}
+0 & 1 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 & 0 & 1
+\end{array}\right] \stackrel{r_1 \leftrightarrow r_2}{\longrightarrow} \left[\begin{array}{lll|lll}1 & 0 & 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1\end{array}\right]$
+\\
+\\
+\\
+$\mathbf{E}_4^{-1} = \left[\begin{array}{lll|lll}1 & 0 & 5 / a & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1\end{array}\right] \stackrel{r_1+r_3*\frac{-5}{a} \rightarrow r_1}{\longrightarrow} \left[\begin{array}{ccc|ccc}1 & 0 & 0 & 1 & 0 & -\frac{5}{a} \\ 0 & 1 & 0 & 0 & 1 & 0 \\ 0 & 0 & 1 & 0 & 0 & 1\end{array}\right]$
+\\
+\\
+\\
+For at finde A, multipliceres de inverse matricer:
+\\
+$A=E_1^{-1} \cdot E_2^{-1} \cdot E_3^{-1} \cdot E_4^{-1}$
+\\
+\\
+$\left[\begin{array}{ccc}1 & 0 & 0 \\ -2 a & 1 & 0 \\ 0 & 0 & 1\end{array}\right] \cdot\left[\begin{array}{lll}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 / 3\end{array}\right]=\left[\begin{array}{ccc}1 & 0 & 0 \\ -2 a & 1 & 0 \\ 0 & 0 & 1 / 3\end{array}\right]$
+\\
+\\
+\\
+$\left[\begin{array}{ccc}1 & 0 & 0 \\ -2 a & 1 & 0 \\ 0 & 0 & 1 / 3\end{array}\right] \cdot\left[\begin{array}{ccc}0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1\end{array}\right]=\left[\begin{array}{ccc}0 & 1 & 0 \\ 1 & -2 a & 0 \\ 0 & 0 & 1 / 3\end{array}\right]$
+\\
+\\
+\\
+$\left[\begin{array}{ccc}0 & 1 & 0 \\ 1 & -2 a \\ 0 & 0 & 1 / 3\end{array}\right] \cdot\left[\begin{array}{ccc}1 & 0 & -\frac{5}{4} \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{array}\right]=\left[\begin{array}{ccc}0 & 1 & 0 \\ 1 & -2 a & -\frac{5}{a} \\ 0 & 0 & 1 / 3\end{array}\right]$
+\\
+\\
+\\
+$A=\left[\begin{array}{ccc}0 & 1 & 0 \\ 1 & -2 a & -\frac{5}{a} \\ 0 & 0 & 1 / 3\end{array}\right]$
+
+\subsection*{c}
+Først finder jeg X:
+\\
+$X=E_4*E_3*E_2*E_1$
+\\
+\\
+$\begin{aligned} & {\left[\begin{array}{lll}1 & 0 & 5 / a \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{array}\right] \cdot\left[\begin{array}{lll}0 & 1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1\end{array}\right]=\left[\begin{array}{lll}0 & 1 & 5 / a \\ 1 & 0 & 0 \\ 0 & 0 & 1\end{array}\right]} \\ & {\left[\begin{array}{lll}0 & 1 & 5 / a \\ 1 & 0 & 0 \\ 0 & 0 & 1\end{array}\right] \cdot\left[\begin{array}{lll}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 3\end{array}\right]=\left[\begin{array}{lll}0 & 1 & 15 / a \\ 1 & 0 & 0 \\ 0 & 0 & 3\end{array}\right]} \\ & {\left[\begin{array}{lll}0 & 1 & 15 / a \\ 1 & 0 & 0 \\ 0 & 0 & 3\end{array}\right] \cdot\left[\begin{array}{lll}1 & 0 & 0 \\ 2 a & 1 & 0 \\ 0 & 0 & 1\end{array}\right]=\left[\begin{array}{ccc}2 a & 1 & 15 / a \\ 1 & 0 & 0 \\ 0 & 0 & 3\end{array}\right]}\end{aligned}$
+\\
+X er således: $X=\left[\begin{array}{ccc}2 a & 1 & 15 / a \\ 1 & 0 & 0\end{array}\right]$
+\\
+\\
+Nu multiplicerer jeg X og B:
+\\
+\\
+$X \cdot B=\left[\begin{array}{ccc}2 a & 1 & 15 / a \\ 1 & 0 & 0\end{array}\right] \times\left[\begin{array}{cc}0 & 1 \\ 1 & -2 a \\ 0 & 0\end{array}\right]=\left[\begin{array}{ll}1 & 0 \\ 0 & 1\end{array}\right]$
+\\
+Vi ser altså at svaret giver enhedsmatricen, og derfor kan det konkluderes at X er en venstre invers til B.
+\\
+\\
+For at bestemme alle venstre-inverserne, starter jeg med at multiplicerer $X=\left(\begin{array}{lll}x_1 & x_2 & x_3 \\ x_4 & x_5 & x_6\end{array}\right)$ og $B=\left[\begin{array}{cc}0 & 1 \\ 1 & -2 a \\ 0 & 0\end{array}\right]$:
+$X \cdot B=\left(\begin{array}{ll}x_2 & x_1-2 a x_2 \\ x_5 & x_4-2 a x_5\end{array}\right)=\left(\begin{array}{ll}1 & 0 \\ 0 & 1\end{array}\right)$
+Dette kan nu opskrives som:
+\\
+\\
+\\
+$\begin{aligned} & \left(\begin{array}{cc|c}x_2 & & 1 \\ x_1-2 a x_2 & & 0 \\ & x_5 & 0 \\ & x_4-2 a x_5 & 1\end{array}\right)=\left(\begin{array}{cccccc|c}0 & 1 & 0 & 0 & 0 & 0 & 1 \\ 1 & -2 a & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 & -2 a & 0 & 1\end{array}\right) \rightarrow \\  & \left(\begin{array}{cccccc|c}1 & -2 a & 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1 & -2 a & 0 & 1 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0\end{array}\right) \rightarrow \left(\begin{array}{cccccc|c}1 & 0 & 0 & 0 & 0 & 0 & 2 a \\ 0 & 1 & 0 & 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 1 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0\end{array}\right) \\ & \end{aligned}$
+\\
+\\
+Således er alle de vesntre-inverse til B, bestemt til at være:
+$\left(\begin{array}{l}x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6\end{array}\right)=\left(\begin{array}{c}2 a \\ 1 \\ t \\ 1 \\ 0 \\ 5\end{array}\right)$
+\\
+\\
+Der findes ingen højre inverse løsninger, da $m$ ikke er mindre eller lig med $n$ og $3$ ikke er mindre eller lig med $n$
+
+
+\section*{Opgave 3}
+\subsection*{a}
+Jeg har konstrueret nabomatricen, ved at indsætte hhv 0 eller 1 afhængigt af om der er en direkte forbindelse, fra den givne række, til den givne kolonne i matricen:
+\\
+\\
+$\mathbf{N}=\left[\begin{array}{lllll}0 & 1 & 0 & 1 & 0 \\ 0 & 0 & 1 & 0 & 1 \\ 1 & 0 & 0 & 0 & 0 \\ 1 & 1 & 1 & 0 & 1 \\ 1 & 0 & 1 & 0 & 0\end{array}\right]$
+\\
+\\
+Jeg kender $N^{3}$, hvilket jeg antager angiver antallet af veje mellem de forskellige knuder af længden 3. For at finde den tilsvarende matrice for længden 6, kan jeg multiplicere $N^{3}$ med sig selv:
+\\
+\\
+$\mathbf{N}^3 \cdot \mathbf{N}^3=\left[\begin{array}{lllll}4 & 1 & 3 & 1 & 1 \\ 1 & 2 & 0 & 2 & 0 \\ 1 & 1 & 2 & 0 & 2 \\ 4 & 3 & 3 & 2 & 2 \\ 1 & 2 & 2 & 1 & 2\end{array}\right] \cdot\left[\begin{array}{lllll}4 & 1 & 3 & 1 & 1 \\ 1 & 2 & 0 & 2 & 0 \\ 1 & 1 & 2 & 0 & 2 \\ 4 & 3 & 3 & 2 & 2 \\ 1 & 2 & 2 & 1 & 2\end{array}\right]=\mathbf{N}^6=\left[\begin{array}{lllll}25 & 14 & 23 & 9 & 14 \\ 14 & 11 & 9 & 9 & 5 \\ 9 & 9 & 11 & 5 & 9 \\ 32 & 23 & 28 & 16 & 18 \\ 14 & 14 & 14 & 9 & 11\end{array}\right]$
+\\
+\\
+Antallet af veje fra knude 4 til knude 5, af længde netop 6, kan nu aflæses på tilsvarende indeksplads i $\mathbf{N}^6$ matricen, til værende 18. 
+\\
+\\
+Eksempel på udregning af denne indeksplads:
+$4 \times 1+3 \times 0+3 \times 2+2 \times 2+2 \times 2=18$
+
+\subsection*{b}
+Ud fra følgende ligningssystem:
+$$
+\begin{aligned}
+& x_1=x_3+\frac{1}{4} x_4+\frac{1}{2} x_5 \\
+& x_2=\frac{1}{2} x_1+\frac{1}{4} x_4 \\
+& x_3=\frac{1}{2} x_2+\frac{1}{4} x_4+\frac{1}{2} x_5 \\
+& x_4=\frac{1}{2} x_1 \\
+& x_5=\frac{1}{2} x_2+\frac{1}{4} x_4
+\end{aligned}
+$$
+Kan jeg opsætte følgende linkmatrice:
+$$
+Linkmatrice =
+\left(\begin{array}{lllll}
+0 & 0 & 0 & \frac{1}{4} & \frac{1}{2} \\
+\frac{1}{2} & 0 & 0 & \frac{1}{4} & 0 \\
+0 & \frac{1}{2} & 0 & \frac{1}{4} & \frac{1}{2} \\
+\frac{1}{2} & 0 & 0 & 0 & 0 \\
+0 & \frac{1}{2} & 0 & \frac{1}{4} & 0
+\end{array}\right)
+$$
+
+
+\subsection*{c}
+Jeg tilføjer $-1$ til diagonalen på linkmatricen og opsætter totalmatricen $Ax-x=0$:
+$$
+\left(\begin{array}{rrrrr|r}
+-1 & 0 & 0 & 1 / 4 & 1 / 2 & 0 \\
+1 / 2 & -1 & 0 & 0 & 0 & 0 \\
+1 / 2 & 1 / 2 & -1 & 0 & 1 / 2 & 0 \\
+1 / 2 & 1 / 2 & 1 & -1 & 0 & 0 \\
+0 & 1 / 2 & 0 & 1 / 4 & -1 & 0
+\end{array}\right)
+$$
+Nu sætter jeg totalmatricen på reduceret rækkeechelonformel.
+\\
+\\
+1. Ganger række 1 igennem med -1
+\\
+2. Ganger række 1 med $1 / 2$ og
+trækkes fra række 2,3, og 4
+\\
+3. Række 2 ganges med -1:
+\\
+\\
+$$\left(\begin{array}{rrrrr|r}1 & 0 & 0 & -1 / 4 & -1 / 2 & 0 \\ 0 & 1 & 0 & -1 / 8 & -1 / 4 & 0 \\ 0 & 1 / 2 & -1 & 1 / 8 & -1 / 4 & 0 \\ 0 & 1 / 2 & 1 & -7 / 8 & 1 / 4 & 0 \\ 0 & 1 / 2 & 0 & 1 / 4 & -1 & 0\end{array}\right)$$
+\\
+\\
+4. Ganger række 2 med $1 / 2$ og trækker fra række 3,4 og 5
+\\
+5. Ganger række 3 igennem med -1 , derefter trækkes række 3 fra række 4
+\\
+6. Ganger række 4 med -8/5:
+\\
+\\
+$$\left(\begin{array}{rrrrr|r}1 & 0 & 0 & -1 / 4 & -1 / 2 & 0 \\ 0 & 1 & 0 & -1 / 8 & -1 / 4 & 0 \\ 0 & 0 & 1 & -3 / 16 & 1 / 8 & 0 \\ 0 & 0 & 0 & 1 & -2 / 5 & 0 \\ 0 & 0 & 0 & 5 / 16 & -7 / 8 & 0\end{array}\right)$$
+\\
+\\
+7. Række 4 ganges med $1 / 4$ og ligges til række 1:
+\\
+8. Ganger række 4 med $1 / 8$ og ligger til række 2
+\\
+9. Ganger række 4 med $3 / 16$ og ligger til række 3
+\\
+10. Ganger række 4 med $5 / 16 \mathrm{og}$ trækker fra række 5:
+\\
+\\
+$$\left(\begin{array}{rrrrr|r}1 & 0 & 0 & 0 & -3 / 5 & 0 \\ 0 & 1 & 0 & 0 & -13 / 20 & 0 \\ 0 & 0 & 1 & 0 & 1 / 20 & 0 \\ 0 & 0 & 0 & 1 & -2 / 5 & 0 \\ 0 & 0 & 0 & 0 & 3 / 4 & 0\end{array}\right)$$
+\\
+\\
+Dette giver os:
+\\
+\\
+$$\begin{aligned} & x_1=-3 / 5 \\ & x_2=-13 / 20 \\ & x_3=1 / 20 \\ & x_4=-2 / 5 \\ & x_5=(3 / 4)=0=>x_5=0\end{aligned}$$
+\\
+\\
+Således er side $3\left(x_3\right)$ vigtigst efterfulgt af side $5\left(x_5\right)$. Dernæst side $4\left(x_4\right)$, derefter side $1\left(x_1\right)$ og til sidst side $2\left(x_2\right)$
+
+
+
+\end{document}
+
+
